@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <libsx.h>
 #include <time.h>
-
-#define M 5
+//taille de la grille
+#define M 5 
 #define N 5
 
 //-------------------------------------------------------//
