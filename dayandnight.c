@@ -3,8 +3,8 @@
 #include <libsx.h>
 #include <time.h>
 //taille de la grille
-#define M 4
-#define N 4
+#define M 5
+#define N 5
 
 //-------------------------------------------------------//
 
@@ -185,13 +185,13 @@ void evolution(int grille[M][N]){ //détermination de la génération suivante
     for(i = 0; i<M; i++){
         for (j = 0; j<N; j++){
             voisins = nbVoisins(grille, i, j); //on récupère le nbr de voisins vivants
-            if(voisins == 3){
-                //naissance
-                res[i][j] = 1;
-            }
-            else if(voisins < 2 || voisins >= 4){
-                //mort par étouffement et par isolement
+            if(voisins <= 2 || voisins == 5){
+                //mort
                 res[i][j] = 0;
+            }
+            else{
+                //naissance ou survie 
+                res[i][j] = 1;
             }
         }
     }
@@ -220,10 +220,15 @@ void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointe
 //-------------------------------------------------------//
 
 int main(){
-    int test[M][N];
+    int test[M][N]= {{1,1,0,0,1},
+                    {0,1,1,1,1},
+                    {0,1,0,1,0},
+                    {0,1,0,1,1},
+                    {0,1,1,0,0}};
+
     int *p = &test[0][0]; //pointeur sur premier élément
-    int cpt = 10; //nbr de générations à afficher
-    initGrille(test); //on génère mles individus
+    int cpt = 1; //nbr de générations à afficher
+    //initGrille(test); //on génère mles individus
     
     for(int i=0; i<=cpt; i++){
         printf("Génération %d\n", i);
