@@ -18,157 +18,36 @@ void initGrille(int grille[M][N]){ //crée une grille avec des individus placés
     }
 }
 
-int nbVoisins(int grille[M][N], int i, int j){ //compte le nombre de voisins vivants de la case
+int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivants
     int voisins = 0;
+    int debutL = i-1;
+    int debutC = j-1;
+    int finL = i+1;
+    int finC = j+1;
 
-    if((i == 0 || i == M-1) && (j == 0 || j == N-1)){ //4 coins de la grille -> seulement 3 voisins
-        if(i == 0 && j == 0){ //coin supérieur gauche
-            if(grille[i][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j+1] == 1){
-                voisins+=1;
-            }
-        }
-        else if(i == 0 && j == N-1){ //coin supérieur droit
-            if(grille[i][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j-1] == 1){
-                voisins+=1;
-            }
-        }
-        else if(i == M-1 && j == 0){ //coin inférieur gauche
-            if(grille[i][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j+1] == 1){
-                voisins+=1;
-            }
-        }
-        else{ //coin inférieur droit
-            if(grille[i][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j-1] == 1){
+    if(i == 0){
+        debutL = i;
+    }
+    else if(i == M-1){
+        finL = i;
+    }
+    if(j == 0){
+        debutC = j;
+    }
+    else if(j == N-1){
+        finC = j;
+    }
+
+    for(int l = debutL; l<=finL; l++){ //parcourt tout autour de la cellule
+        for(int m = debutC; m<=finC; m++){
+            if(grille[l][m] == 1){
                 voisins+=1;
             }
         }
     }
-    else if((i == 0 || i == M-1) && (j!= 0 || j != N-1)){ //cas à 5 voisins
-        if(i == 0){ //ligne supérieure du tableau sans les 2 coins
-            if(grille[i][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j+1] == 1){
-                voisins+=1;
-            }
-        }
-
-        else{ //ligne inférieure de la grille sans les 2 coins
-            if(grille[i][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j+1] == 1){
-                voisins+=1;
-            }
-        }
+    if(grille[i][j] == 1){ //si la cellule est vivante elle a été comptée dans le nbr de voisins vivants
+        voisins-=1; //on retire donc 1
     }
-    else if((i != 0 || i != M-1) && (j == 0 || j == N-1)){ //autre cas à 5 voisins
-        if(j == 0){ //ligne à gauche sans les 2 coins 
-            if(grille[i-1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i][j+1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j+1] == 1){
-                voisins+=1;
-            }
-        }
-        else{ //ligne à droite sans les 2 coins
-            if(grille[i-1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i-1][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i][j-1] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j] == 1){
-                voisins+=1;
-            }
-            if(grille[i+1][j-1] == 1){
-                voisins+=1;
-            }
-        }
-
-    } 
-    else { //cas général avec 8 voisins
-        if(grille[i-1][j-1] == 1){
-            voisins+=1;
-        }
-        if(grille[i-1][j] == 1){
-            voisins+=1;
-        }
-        if(grille[i-1][j+1] == 1){
-            voisins+=1;
-        }
-        if(grille[i][j-1] == 1){
-            voisins+=1;
-        }
-        if(grille[i][j+1] == 1){
-            voisins+=1;
-        }
-        if(grille[i+1][j-1] == 1){
-            voisins+=1;
-        }
-        if(grille[i+1][j] == 1){
-            voisins+=1;
-        }
-        if(grille[i+1][j+1] == 1){
-            voisins+=1;
-        }
-    }
-    return voisins;
-
 }
 
 void evolution(int grille[M][N]){ //détermination de la génération suivante
