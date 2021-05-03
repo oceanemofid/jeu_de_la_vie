@@ -48,6 +48,7 @@ int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivant
     if(grille[i][j] == 1){ //si la cellule est vivante elle a été comptée dans le nbr de voisins vivants
         voisins-=1; //on retire donc 1
     }
+    return voisins;
 }
 
 void evolution(int grille[M][N]){ //détermination de la génération suivante
