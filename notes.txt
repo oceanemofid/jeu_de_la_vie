@@ -1,0 +1,47 @@
+changer les ifs en if + 2 for 
+typedef enum {BLUE, GREEN, RED, YELLOW, BLACK, WHITE} couleurs;
+typedef struct cellule ? int x,y coordonnées, char 'couleur', int suivant
+
+noir et blanc pour population de base 
+couleurs pour cellules qui survient
+                mort par étouffement
+                mort par isolement
+
+bleu : cellules en cours de vie
+vert : cellules naissantes
+rouge : cellules mourantes
+jaune : cellules ne vivant qu’une seule génération
+
+libsx : 
+vue.c 
+//fabrique widget
+//fonctions qui interagissent avec l'utilisateur 
+//include callbacks
+//display, interface graphique
+
+callbacks.c 
+//contient tous les callbacks
+//include donnees
+//fonctions de rappels
+//ne doivent pas accéder à la structure concrete du modele
+=> callbacks.h //contient les prototypes
+
+modele.c 
+//static void fonction -> locale à modele.c
+//représentation indépendante de la matrice
+//indépendant de vue.c
+
+main.c
+//donnees partagées
+//include donnees.h
+
+donnees.h 
+//contient la déf de donnees partagées entre les callbacks et le modele
+//déclaration de tableaux
+//font le lien entre le callbacks et le modele 
+//infos sur structures donnees
+
+
+user ===> vue ====> callbacks =================> modele    
+                        |                          |
+                        ---> donnees partagées <---|
