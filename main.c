@@ -81,6 +81,37 @@ void evolution(int grille[M][N]){ //détermination de la génération suivante
     }
 }
 
+void dayandnight(int grille[M][N]){ //détermination de la génération suivante
+    int i, j;
+    int voisins;
+    int res[M][N]; //grille intermédiaire
+
+    for(int l = 0; l<M; l++){
+        for (int m = 0; m<N; m++){
+            res[l][m] = grille[l][m]; //res = grille
+        }
+    }
+   
+    for(i = 0; i<M; i++){
+        for (j = 0; j<N; j++){
+            voisins = nbVoisins(grille, i, j); //on récupère le nbr de voisins vivants
+            if(voisins <= 2 || voisins == 5){
+                //mort
+                res[i][j] = 0;
+            }
+            else{
+                //naissance ou survie 
+                res[i][j] = 1;
+            }
+        }
+    }
+    for(int l = 0; l<M; l++){
+        for (int m = 0; m<N; m++){
+            grille[l][m] = res[l][m]; //grille = res
+        }
+    }
+}
+
 void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointeur qui pointe sur le premier élément de la grille
     for(int i = 0; i<M ; i++){
         for (int j = 0; j<N; j++){
