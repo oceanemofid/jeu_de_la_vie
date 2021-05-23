@@ -3,14 +3,7 @@
 #include <libsx.h>
 #include "modele.h"
 #include "vue.h"
-//taille de la grille
 
-
-//-------------------------------------------------------//
-
-
-
-//-------------------------------------------------------//
 
 int main(int argc, char *argv[]){
     int test[M][N];
@@ -23,20 +16,9 @@ int main(int argc, char *argv[]){
     return EXIT_FAILURE;
     }
 
-    init_display(argc, argv, p);
+    init_display();
     MainLoop();
     return EXIT_SUCCESS;
 
 }
-/*
-int main(int argc, char *argv[]) {
-    ValeurCourante d;
-    
-// intialliser la donnée partagée entre le modèle
-// et l’IG
-    initValeurCourante(&d);
-// créer l’IG et l’afficher à l’écran
-    init_display(argc, argv, &d);
-    MainLoop();
-    return EXIT_SUCCESS;
-}*/
+

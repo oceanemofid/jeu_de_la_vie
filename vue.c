@@ -14,13 +14,16 @@
 #define HAUTEUR 500
 /* Rôle: création et assemblage des widgets */
 
-void init_display(int argc, char *argv[], void *d){
-    //Widget BQuit;
+void init_display(){
+    Widget BQuit, Box, BOne;
 // créer les composants graphiques
-    //BQuit = MakeButton(" Quit ", quit, NULL);
+    BQuit = MakeButton(" Quit ", quit, NULL);
+    BOne = MakeButton(" Next ", quit, NULL);
+    Box = MakeDrawArea(500,500,evolution,NULL);
     DrawBox(0,0,LARGEUR,HAUTEUR);
 // assembler les composants graphiques
-    //SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL);
+    SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL);
+    SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
 
 // pour gérer les couleurs
     GetStandardColors();

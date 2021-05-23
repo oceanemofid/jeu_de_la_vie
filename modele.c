@@ -126,7 +126,7 @@ void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointe
             printf(" |"); //séparateur de cellules
             pointeur+=1; //on incrémente le pointeur, on passe donc à l'élément suivant de la grille
         }
-        printf("\n");
+        printf("\n"); 
     }
     
 }
