@@ -45,3 +45,23 @@ donnees.h
 user ===> vue ====> callbacks =================> modele    
                         |                          |
                         ---> donnees partagées <---|
+
+
+===> work in progress
+
+idée : 
+dans main : 
+    ouverture de fichier, initialisation de la grille
+    init display initialise le display selon M,N
+
+dans callbacks : 
+    une fonction next génération    
+    une fonction (reliée à un bouton) run -> toutes les générations toutes les secondes
+    une fonction afficher qui DrawArea selon valeur du pointeur sur cellule 
+        p = 0 : blanc
+        p = 0 et nbVoisins = 4 : naissance
+        p = 1 et nbVoisins >= 4 : rouge (étouffement)
+        p = 1 et nbVoisins <= 1 : bleu (isolement)
+    DrawArea draw tout le carré de dimensions dépendant de la taille de la grille (M-1 lignes à tracer, N-1 colonnes à tracer)
+    une fonction (reliée à un bouton) quit qui quitte
+
