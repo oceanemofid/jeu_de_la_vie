@@ -1,8 +1,8 @@
 #pragma once
 #include <libsx.h>
 
-#define M 4
-#define N 4
+#define M 16
+#define N 16
 
 extern void initGrille(int grille[M][N]);
 extern int nbVoisins(int grille[M][N], int i, int j);
