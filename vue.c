@@ -17,10 +17,29 @@
 void init_display(){
     Widget BQuit, Box, BOne;
 // créer les composants graphiques
+    ClearDrawArea();
     BQuit = MakeButton(" Quit ", quit, NULL);
     BOne = MakeButton(" Next ", quit, NULL);
-    Box = MakeDrawArea(500,500,evolution,NULL);
+    //Menu
+    //char *name = "Choix"
+    //menu = MakeMenu(name);
+    //MakeMenuItem(Widget menu, char *name, ButtonCB func, void *arg)
+    // règles de base
+    // variante day and night 
+    //pour chaque struct;
+    //bouton/coche grille aléatoire 
+    //SetMenuItemChecked(Widget w, int state); -> func
+    //BOUTON run
+    //-run -> lance nv fenetre 
+
+    //seconde = MakeWindow(char *window_name, char *display_name, int exclusive);EXCLUSIVE_WINDOW
+    //Box = MakeDrawArea(500,500,evolution,NULL);
+
+    //bouton retour
+    //CloseWindow() 
+    
     DrawBox(0,0,LARGEUR,HAUTEUR);
+
 // assembler les composants graphiques
     SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL);
     SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
