@@ -17,9 +17,9 @@
 void init_display(){
     Widget BQuit, BOne;
 // créer les composants graphiques
-    ClearDrawArea();
-    //BQuit = MakeButton(" Quit ", quit, NULL);
-    //BOne = MakeButton(" Next ", quit, NULL);
+    //ClearDrawArea();
+    BQuit = MakeButton(" Quit ", quit, NULL);
+    BOne = MakeButton(" Next ", quit, NULL);
     //Menu
     //char *name = "Choix"
     //menu = MakeMenu(name);
@@ -41,8 +41,8 @@ void init_display(){
     //DrawBox(0,0,LARGEUR,HAUTEUR);
 
 // assembler les composants graphiques
-    //SetWidgetPos(BQuit, NO_CARE, NULL, NO_CARE, NULL);
-    //SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
+    SetWidgetPos(BQuit, NO_CARE, NULL, NO_CARE, NULL);
+    SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
 
 // pour gérer les couleurs
     GetStandardColors();
