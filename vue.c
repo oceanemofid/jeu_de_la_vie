@@ -15,11 +15,11 @@
 /* Rôle: création et assemblage des widgets */
 
 void init_display(){
-    Widget BQuit, Box, BOne;
+    Widget BQuit, BOne;
 // créer les composants graphiques
     ClearDrawArea();
-    BQuit = MakeButton(" Quit ", quit, NULL);
-    BOne = MakeButton(" Next ", quit, NULL);
+    //BQuit = MakeButton(" Quit ", quit, NULL);
+    //BOne = MakeButton(" Next ", quit, NULL);
     //Menu
     //char *name = "Choix"
     //menu = MakeMenu(name);
@@ -38,11 +38,11 @@ void init_display(){
     //bouton retour
     //CloseWindow() 
     
-    DrawBox(0,0,LARGEUR,HAUTEUR);
+    //DrawBox(0,0,LARGEUR,HAUTEUR);
 
 // assembler les composants graphiques
-    SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL);
-    SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
+    //SetWidgetPos(BQuit, NO_CARE, NULL, NO_CARE, NULL);
+    //SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
 
 // pour gérer les couleurs
     GetStandardColors();

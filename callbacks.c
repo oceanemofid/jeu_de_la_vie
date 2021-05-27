@@ -15,16 +15,16 @@ void quit(Widget w, void *d) {
     exit(EXIT_SUCCESS);
 }
 
-void generation_grille(){
-    int grille[M][N];
+void generation_grille(Widget w, int grille [M][N]){
+    //int grille[M][N];
     //int GetMenuItemChecked(Widget w); -> 1 : checked
     //selon l'iten checked, aléatoire ou ouverture du fichier
     //pour fichier conversion du binaire en grille 
     initGrille(grille);
     //ouvre fenetre
     //SetCurrentWindow(Widget w);
-    run_basique(Box, grille);
-    run_variante();
+    run_basique(w, grille);
+    run_variante(w, grille);
 }
 
 void afficher(int grille[M][N], Widget w){
@@ -53,16 +53,16 @@ void afficher(int grille[M][N], Widget w){
 
 void run_basique(Widget w, int grille [M][N]){
     //boucle timer
-    afficher(grille,Box);
+    afficher(grille,w);
     evolution(grille);
     //Redisplay
     SyncDisplay();
     
 }
 
-void run_variante(){
+void run_variante(Widget w, int grille [M][N]){
     //boucle timer
-    afficher(grille,Box);
+    afficher(grille,w);
     dayandnight(grille);
     //Redisplay
     SyncDisplay();
