@@ -1,13 +1,14 @@
 #pragma once
 extern void quit(Widget, void *);
-extern void basique(Widget w);
-extern void variante(Widget w);
-extern void aleatoire(Widget w);
-extern void stable(Widget w);
-extern void vaisseau(Widget w);
-extern void run(Widget w);
+extern void aleatoire(Widget w, void *data);
+extern void stable(Widget w, void *data);
+extern void vaisseau(Widget w, void *data);
+extern void montre(Widget w, void *data);
 extern void afficher(int grille[M][N], void *data);
 extern void waitingscreen(); 
+extern void run_basique(void *data, XtIntervalId *id, int grille[M][N]);
+extern void run_variante(void *data, XtIntervalId *id, int grille[M][N]);
+
 
 
 #define LARGEUR 576

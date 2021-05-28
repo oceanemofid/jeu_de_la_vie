@@ -42,7 +42,7 @@ int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivant
 
     for(int l = debutL; l<=finL; l++){ //parcourt tout autour de la cellule
         for(int m = debutC; m<=finC; m++){
-            if(grille[l][m] == 1){
+            if(grille[l][m] == 1 || grille[l][m] == 49){
                 voisins+=1;
             }
         }
@@ -131,14 +131,19 @@ void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointe
     
 }
 
-void conversion(int grille[M][N], int num){
+void conversion(int grille[M][N], int nom){
     FILE *file, *f;
-    
-    if(num == 1){
+    switch (nom){
+    case STABLE:
         f = "stable.txt";
-    }
-    else if(num == 2){
+        break;
+    case VAISSEAU:
         f = "vaisseau_simple.txt";
+        break;
+    case MONTRE:
+        f = "montre.txt";
+        break;
+
     }
     file = fopen(f, "r");
     if (file == NULL){
@@ -164,3 +169,16 @@ void conversion(int grille[M][N], int num){
     } while(1);
     fclose(file);
 }
+
+void delay(){
+    int i;
+    int msec = 0, trigger = 5000; /* 5s */
+    clock_t before = clock();
+
+    do {
+    clock_t difference = clock() - before;
+    msec = difference * 1000 / CLOCKS_PER_SEC;
+    i++;}   
+    while ( msec < trigger );
+}
+

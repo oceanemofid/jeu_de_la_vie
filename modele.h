@@ -4,9 +4,11 @@
 #define M 16
 #define N 16
 
+enum {STABLE, VAISSEAU, MONTRE};
+
 extern void initGrille(int grille[M][N]);
 extern int nbVoisins(int grille[M][N], int i, int j);
 extern void evolution(int grille[M][N]);
 extern void dayandnight(int grille[M][N]);
+extern void conversion(int grille[M][N], int nom); 
 extern void afficherGrille(int *pointeur);
-extern void conversion(int grille[M][N], int num); 
