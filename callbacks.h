@@ -7,7 +7,7 @@ extern void stable(Widget w);
 extern void vaisseau(Widget w);
 extern void run(Widget w);
 extern void afficher(int grille[M][N], void *data);
-extern void waitingscreen();
+extern void waitingscreen(); 
 
 
 #define LARGEUR 576

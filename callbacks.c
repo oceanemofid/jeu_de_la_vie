@@ -13,7 +13,7 @@
  * Rôle : termine l’exécution de l’application
  */
 void quit(Widget w, void *d) {
-    exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS); 
 }
 
 void basique(Widget w){

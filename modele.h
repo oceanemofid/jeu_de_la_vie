@@ -9,4 +9,4 @@ extern int nbVoisins(int grille[M][N], int i, int j);
 extern void evolution(int grille[M][N]);
 extern void dayandnight(int grille[M][N]);
 extern void afficherGrille(int *pointeur);
-extern void conversion(int grille[M][N], int num);
+extern void conversion(int grille[M][N], int num); 

@@ -44,7 +44,7 @@ donnees.h
 
 user ===> vue ====> callbacks =================> modele    
                         |                          |
-                        ---> donnees partagées <---|
+                        ---> donnees partagées <---| 
 
 
 ===> work in progress

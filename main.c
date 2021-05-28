@@ -3,7 +3,7 @@
 #include <libsx.h>
 #include "modele.h"
 #include "vue.h"
-
+//export DISPLAY=:0
 
 int main(){
     int test[M][N];

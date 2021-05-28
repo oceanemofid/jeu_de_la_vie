@@ -23,7 +23,7 @@ void init_display(){
     Box = MakeDrawArea(LARGEUR,HAUTEUR,waitingscreen,NULL);
 
     BQuit = MakeButton(" Quit ", quit, NULL);
-    BRun = MakeButton("Run", quit, NULL);
+    BRun = MakeButton("Run", quit, NULL); 
     
     
 

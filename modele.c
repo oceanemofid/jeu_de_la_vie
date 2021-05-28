@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> 
 #include "modele.h"
 #include <time.h>
 
