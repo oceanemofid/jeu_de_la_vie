@@ -130,3 +130,37 @@ void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointe
     }
     
 }
+
+void conversion(int grille[M][N], int num){
+    FILE *file, *f;
+    
+    if(num == 1){
+        f = "stable.txt";
+    }
+    else if(num == 2){
+        f = "vaisseau_simple.txt";
+    }
+    file = fopen(f, "r");
+    if (file == NULL){
+        exit(EXIT_FAILURE);
+    }
+
+    int x;
+    int i = 0, j = 0;
+    do{
+        x = fgetc(file);
+        grille[i][j] = x;
+        j++;
+        if(j==N){
+            j = 0;
+            i++;
+            if(i==M){
+                break;
+            }
+        }
+        if(feof(file)){
+            break;
+        }
+    } while(1);
+    fclose(file);
+}

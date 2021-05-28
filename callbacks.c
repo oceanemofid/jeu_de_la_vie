@@ -3,10 +3,11 @@
  */
 #include <stdlib.h>
 #include <stdio.h>
-#include <libsx.h>
+#include <libsx.h> 
 #include "modele.h"
 #include "vue.h"
 #include "callbacks.h"
+
 
 /*
  * Rôle : termine l’exécution de l’application
@@ -15,56 +16,93 @@ void quit(Widget w, void *d) {
     exit(EXIT_SUCCESS);
 }
 
-void generation_grille(Widget w, int grille [M][N]){
-    //int grille[M][N];
-    //int GetMenuItemChecked(Widget w); -> 1 : checked
-    //selon l'iten checked, aléatoire ou ouverture du fichier
-    //pour fichier conversion du binaire en grille 
-    initGrille(grille);
-    //ouvre fenetre
-    //SetCurrentWindow(Widget w);
-    run_basique(w, grille);
-    run_variante(w, grille);
+void basique(Widget w){
+    void *d;
+    int grille[M][N];
+    //int x = GetYesNo("Voulez vous generer aleatoirement une grille ? ");
+    /*if(x){
+        initGrille(grille);
+    }
+    else{
+        //choix structure
+        //conversion(grille);
+    }*/
+        MakeWindow("Test", NULL, 1);
+        //afficher(grille,d);
 }
 
-void afficher(int grille[M][N], Widget w){
-    int voisins;
+void variante(Widget w){ //ouvrir fenêtre
+    
+}
+
+void waitingscreen(){
+    SetLineWidth(2);
+    SetColor(RED);
+    int x;
+    int width = 36;
     for(int i = 0; i<M; i++){
-        for (int j = 0; j<N; j++){
-            voisins = nbVoisins(grille,i,j);
-            if(grille[i][j]== 0 && voisins == 3){
-                //Draw
-            }
-            else if(grille[i][j]== 1 && voisins >= 4){
-                //Draw
-            }
-            else if(grille[i][j]== 1 && voisins <=1){
-                //Draw
-            }
-            else if(grille[i][j]== 0){
-                //Draw
-            }
-            else{
-                //Draw
-            }
-        }
+        x = i * width;
+        SetColor(BLACK);
+        DrawFilledBox(x,x,width,width);
     }
 }
 
-void run_basique(Widget w, int grille [M][N]){
-    //boucle timer
-    afficher(grille,w);
-    evolution(grille);
-    //Redisplay
-    SyncDisplay();
-    
+void aleatoire(Widget w){
+    if(GetMenuItemChecked(w)){ //Coché
+        SetMenuItemChecked(w,0);
+    }
+    else{
+        SetMenuItemChecked(w,1);
+    }
 }
 
-void run_variante(Widget w, int grille [M][N]){
-    //boucle timer
-    afficher(grille,w);
-    dayandnight(grille);
-    //Redisplay
-    SyncDisplay();
-    
+void stable(Widget w){
+    if(GetMenuItemChecked(w)){ //Coché
+        SetMenuItemChecked(w,0);
+    }
+    else{
+        SetMenuItemChecked(w,1);
+    }
 }
+
+void vaisseau(Widget w){
+    if(GetMenuItemChecked(w)){ //Coché
+        SetMenuItemChecked(w,0);
+    }
+    else{
+        SetMenuItemChecked(w,1);
+    }
+}
+
+void afficher(int grille[M][N], void *data){
+    int voisins, x, y, width, height;
+    int u=0;
+    width = 36;
+    height = 36;
+         
+    for(int i = 0; i<M; i++){
+        for (int j = 0; j<N; j++){
+            voisins = nbVoisins(grille,i,j);
+            x = i * width;
+            y = j * height;
+            if(grille[i][j]== 0){
+                SetColor(BLACK);
+                DrawFilledBox(x,y,width,height);
+            }
+            else if(grille[i][j]== 1){
+                SetColor(YELLOW);
+                DrawFilledBox(x,y,width,height);
+            }
+        }
+    }
+    SetLineWidth(2);
+    for(int i = 0; i<M; i++){
+        u += width;
+        SetColor(WHITE);
+        DrawLine(u,0,u,LARGEUR);
+        DrawLine(0,u,HAUTEUR,u);
+    }
+    evolution(grille);
+    AddTimeOut(2000, afficher,data);
+}
+
