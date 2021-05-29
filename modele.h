@@ -4,7 +4,7 @@
 #define M 16
 #define N 16
 
-enum {STABLE, VAISSEAU, MONTRE};
+enum {STABLE, VAISSEAU, MONTRE, OSCILLATEUR, PENTADECATHLON, GALAXIE};
 
 extern void initGrille(int grille[M][N]);
 extern int nbVoisins(int grille[M][N], int i, int j);

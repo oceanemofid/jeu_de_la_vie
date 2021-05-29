@@ -12,7 +12,7 @@
 /* Rôle: création et assemblage des widgets */
 
 void init_display(){
-    Widget BQuit, BStable, BVaisseau, BMontre, BAlea;
+    Widget BQuit, BStable, BVaisseau, BMontre, BAlea, BOscillo, BPentha, BGalaxie;
     Widget Box, Texte;
     char *txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nMauris mollis elit a dui tincidunt pellentesque.\nInteger tellus felis, cursus egestas pellentesque ac, interdum at metus.\nMorbi mollis vel quam vel vulputate.\nMauris ultrices et nunc at lobortis. Etiam faucibus nisl urna, vitae gravida nunc volutpat id.\nInteger placerat leo in sem tincidunt, ut aliquam mauris vulputate.\nProin porttitor scelerisque enim, quis auctor massa congue eu. ";
 // créer les composants graphiques
@@ -22,6 +22,9 @@ void init_display(){
     BStable = MakeButton("Structure stable", stable, NULL);
     BVaisseau = MakeButton("Vaisseau simple", vaisseau, NULL);
     BMontre = MakeButton("Montre", montre, NULL);
+    BOscillo = MakeButton("Oscillateur", oscillateur, NULL);
+    BPentha = MakeButton("Penthadecathlon", pentadecathlon, NULL);
+    BGalaxie = MakeButton("Galaxie de Kok", galaxie, NULL);
 
     Box = MakeDrawArea(LARGEUR,HAUTEUR,waitingscreen,NULL);
     
@@ -33,8 +36,11 @@ void init_display(){
     SetWidgetPos(BStable, PLACE_UNDER, BAlea, NO_CARE, NULL);
     SetWidgetPos(BVaisseau, PLACE_UNDER, BStable, NO_CARE, NULL);
     SetWidgetPos(BMontre, PLACE_UNDER, BVaisseau, NO_CARE, NULL);
+    SetWidgetPos(BOscillo, PLACE_UNDER, BMontre, NO_CARE, NULL);
+    SetWidgetPos(BPentha, PLACE_UNDER, BOscillo, NO_CARE, NULL);
+    SetWidgetPos(BGalaxie, PLACE_UNDER, BPentha, NO_CARE, NULL);
 
-    SetWidgetPos(Box, PLACE_UNDER, BMontre, NO_CARE, NULL);
+    SetWidgetPos(Box, PLACE_UNDER, BGalaxie, NO_CARE, NULL);
 
     SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL); 
 // pour gérer les couleurs

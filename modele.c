@@ -146,7 +146,15 @@ void conversion(int grille[M][N], int nom){
     case MONTRE:
         f = "montre.txt";
         break;
-
+    case OSCILLATEUR:
+        f = "oscillateur.txt";
+        break;
+    case PENTADECATHLON:
+        f = "pentadecathlon.txt";
+        break;
+    case GALAXIE:
+        f = "galaxie.txt";
+        break;
     }
     file = fopen(f, "r");
     if (file == NULL){

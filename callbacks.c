@@ -51,7 +51,6 @@ void stable(Widget w, void *data){
 void vaisseau(Widget w, void *data){
     int grille[M][N];
     void *d;
-    int *p = &grille[0][0];
     conversion(grille,VAISSEAU);
     afficher(grille);
     int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
@@ -59,7 +58,7 @@ void vaisseau(Widget w, void *data){
         run_variante(grille, d);
     }
     else{
-        run_basique(grille,p);
+        run_basique(grille,d);
     }
 }
 
@@ -77,55 +76,92 @@ void montre(Widget w, void *data){
     }
 }
 
+void oscillateur(Widget w, void *data){
+    void *d;
+    int grille[M][N];
+    conversion(grille,OSCILLATEUR);
+    afficher(grille);
+    int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
+    if(x){
+        run_variante(grille, d);
+    }
+    else{
+        run_basique(grille,d);
+    }
+}
+
+void pentadecathlon(Widget w, void *data){
+    void *d;
+    int grille[M][N];
+    conversion(grille,PENTADECATHLON);
+    afficher(grille);
+    int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
+    if(x){
+        run_variante(grille, d);
+    }
+    else{
+        run_basique(grille,d);
+    }
+}
+
+void galaxie(Widget w, void *data){
+    void *d;
+    int grille[M][N];
+    conversion(grille,galaxie);
+    afficher(grille);
+    int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
+    if(x){
+        run_variante(grille, d);
+    }
+    else{
+        run_basique(grille,d);
+    }
+}
+
 void afficher(int grille[M][N]){
-    int voisins, x, y, width, height;
+    int voisins, width, height;
+    int x = 0;
+    int y = 0;
     int u=0;
     width = 36;
     height = 36;
-    ClearDrawArea();
+    //ClearDrawArea();
     for(int i = 0; i<M; i++){
         for (int j = 0; j<N; j++){
             voisins = nbVoisins(grille,i,j);
-            x = j * width;
-            y = i * height;
             if(grille[i][j]== 0 || grille[i][j]== 48){
                 SetColor(BLUE);
                 DrawFilledBox(x,y,width,height);
             }
             else if(grille[i][j]== 1|| grille[i][j]== 49){
                 SetColor(YELLOW);
-                DrawFilledBox(0,0,width,height);
+                DrawFilledBox(x,y,width,height);
             }
+            x += width + 3;
         }
-    }
-    SetLineWidth(2);
-    for(int i = 0; i<M; i++){
-        u += width;
-        SetColor(WHITE);
-        DrawLine(u,0,u,LARGEUR);
-        DrawLine(0,u,HAUTEUR,u);
+        x = 0;
+        y += height + 3;
     }
 }
 
-void run_variante(int grille[M][N], void *data){
-    //while(delay(3)){
+void run_variante(int grille[M][N], int *data){
+    int i = 0;
+    while(i<100){
+        delay(200);
         dayandnight(grille);
         afficher(grille);
-    //}
+        i++;
+    }
+    ClearDrawArea();
 }
 
 void run_basique(int grille[M][N], int *data){
-    evolution(grille);
-    delay(3);
-    afficher(grille);
-    evolution(grille);
-    delay(3);
-    afficher(grille);
-    evolution(grille);
-    afficher(grille);
-    evolution(grille);
-    afficher(grille);
-    evolution(grille);
-    afficher(grille);
-    evolution(grille);
+    int i = 0;
+    while(i<100){
+        delay(200);
+        evolution(grille);
+        afficher(grille);
+        i++;
+    }
+    ClearDrawArea();
 }
