@@ -15,35 +15,32 @@
 /* Rôle: création et assemblage des widgets */
 
 void init_display(){
-    Widget BQuit, Box, BOne;
+    Widget BQuit, Menu, BStable, BVaisseau, BMontre, BAlea;
+    Widget Box, Texte;
+    void *d;
+    char *txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nMauris mollis elit a dui tincidunt pellentesque.\nInteger tellus felis, cursus egestas pellentesque ac, interdum at metus.\nMorbi mollis vel quam vel vulputate.\nMauris ultrices et nunc at lobortis. Etiam faucibus nisl urna, vitae gravida nunc volutpat id.\nInteger placerat leo in sem tincidunt, ut aliquam mauris vulputate.\nProin porttitor scelerisque enim, quis auctor massa congue eu. ";
 // créer les composants graphiques
-    ClearDrawArea();
+    Texte = MakeLabel(txt);
+
+    BAlea = MakeButton("Population aleatoire", aleatoire, NULL);
+    BStable = MakeButton("Structure stable", stable, NULL);
+    BVaisseau = MakeButton("Vaisseau simple", vaisseau, NULL);
+    BMontre = MakeButton("Montre", montre, NULL);
+
+    Box = MakeDrawArea(LARGEUR,HAUTEUR,waitingscreen,NULL);
+
     BQuit = MakeButton(" Quit ", quit, NULL);
-    BOne = MakeButton(" Next ", quit, NULL);
-    //Menu
-    //char *name = "Choix"
-    //menu = MakeMenu(name);
-    //MakeMenuItem(Widget menu, char *name, ButtonCB func, void *arg)
-    // règles de base
-    // variante day and night 
-    //pour chaque struct;
-    //bouton/coche grille aléatoire 
-    //SetMenuItemChecked(Widget w, int state); -> func
-    //BOUTON run
-    //-run -> lance nv fenetre 
-
-    //seconde = MakeWindow(char *window_name, char *display_name, int exclusive);EXCLUSIVE_WINDOW
-    //Box = MakeDrawArea(500,500,evolution,NULL);
-
-    //bouton retour
-    //CloseWindow() 
-    
-    DrawBox(0,0,LARGEUR,HAUTEUR);
 
 // assembler les composants graphiques
-    SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL);
-    SetWidgetPos(BOne, PLACE_UNDER, BQuit, NO_CARE, NULL);
+    SetWidgetPos(Texte, NO_CARE, NULL, NO_CARE, NULL); 
+    SetWidgetPos(BAlea, PLACE_UNDER, Texte, NO_CARE, NULL); 
+    SetWidgetPos(BStable, PLACE_UNDER, BAlea, NO_CARE, NULL);
+    SetWidgetPos(BVaisseau, PLACE_UNDER, BStable, NO_CARE, NULL);
+    SetWidgetPos(BMontre, PLACE_UNDER, BVaisseau, NO_CARE, NULL);
 
+    SetWidgetPos(Box, PLACE_UNDER, BMontre, NO_CARE, NULL);
+
+    SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL); 
 // pour gérer les couleurs
     GetStandardColors();
 

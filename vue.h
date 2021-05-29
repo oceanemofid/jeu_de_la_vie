@@ -1,1 +1,1 @@
-extern void init_display();
+extern void init_display(); 

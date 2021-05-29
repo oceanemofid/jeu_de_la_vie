@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> 
 #include "modele.h"
 #include <time.h>
 
@@ -42,7 +42,7 @@ int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivant
 
     for(int l = debutL; l<=finL; l++){ //parcourt tout autour de la cellule
         for(int m = debutC; m<=finC; m++){
-            if(grille[l][m] == 1){
+            if(grille[l][m] == 1 || grille[l][m] == 49){
                 voisins+=1;
             }
         }
@@ -130,3 +130,55 @@ void afficherGrille(int *pointeur){ //affiche la grille en passant par le pointe
     }
     
 }
+
+void conversion(int grille[M][N], int nom){
+    FILE *file, *f;
+    switch (nom){
+    case STABLE:
+        f = "stable.txt";
+        break;
+    case VAISSEAU:
+        f = "vaisseau_simple.txt";
+        break;
+    case MONTRE:
+        f = "montre.txt";
+        break;
+
+    }
+    file = fopen(f, "r");
+    if (file == NULL){
+        exit(EXIT_FAILURE);
+    }
+
+    int x;
+    int i = 0, j = 0;
+    do{
+        x = fgetc(file);
+        grille[i][j] = x;
+        j++;
+        if(j==N){
+            j = 0;
+            i++;
+            if(i==M){
+                break;
+            }
+        }
+        if(feof(file)){
+            break;
+        }
+    } while(1);
+    fclose(file);
+}
+
+void delay(){
+    int i;
+    int msec = 0, trigger = 5000; /* 5s */
+    clock_t before = clock();
+
+    do {
+    clock_t difference = clock() - before;
+    msec = difference * 1000 / CLOCKS_PER_SEC;
+    i++;}   
+    while ( msec < trigger );
+}
+
