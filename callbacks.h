@@ -4,10 +4,10 @@ extern void aleatoire(Widget w, void *data);
 extern void stable(Widget w, void *data);
 extern void vaisseau(Widget w, void *data);
 extern void montre(Widget w, void *data);
-extern void afficher(int grille[M][N], void *data);
+extern void afficher(int grille[M][N]);
 extern void waitingscreen(); 
-extern void run_basique(int grille[M][N],  void *data);
-extern void run_variante(int grille[M][N]);
+extern void run_basique(int grille[M][N],  int *data);
+extern void run_variante(int grille[M][N], void *data);
 
 
 

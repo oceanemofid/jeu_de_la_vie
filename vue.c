@@ -9,15 +9,11 @@
 #include "modele.h"
 #include "callbacks.h"
 
-
-#define LARGEUR 500
-#define HAUTEUR 500
 /* Rôle: création et assemblage des widgets */
 
 void init_display(){
-    Widget BQuit, Menu, BStable, BVaisseau, BMontre, BAlea;
+    Widget BQuit, BStable, BVaisseau, BMontre, BAlea;
     Widget Box, Texte;
-    void *d;
     char *txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nMauris mollis elit a dui tincidunt pellentesque.\nInteger tellus felis, cursus egestas pellentesque ac, interdum at metus.\nMorbi mollis vel quam vel vulputate.\nMauris ultrices et nunc at lobortis. Etiam faucibus nisl urna, vitae gravida nunc volutpat id.\nInteger placerat leo in sem tincidunt, ut aliquam mauris vulputate.\nProin porttitor scelerisque enim, quis auctor massa congue eu. ";
 // créer les composants graphiques
     Texte = MakeLabel(txt);
@@ -28,7 +24,7 @@ void init_display(){
     BMontre = MakeButton("Montre", montre, NULL);
 
     Box = MakeDrawArea(LARGEUR,HAUTEUR,waitingscreen,NULL);
-
+    
     BQuit = MakeButton(" Quit ", quit, NULL);
 
 // assembler les composants graphiques

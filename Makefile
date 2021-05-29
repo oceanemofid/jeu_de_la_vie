@@ -2,7 +2,7 @@ CC = gcc # le compilateur à utiliser
 CFLAGS = -Wall # les options du compilateur
 LDFLAGS = -lsx # les options pour l’éditeur de liens
 SRC = main.c callbacks.c modele.c vue.c # les fichiers sources
-PROG = main.o # nom de l’exécutable
+PROG = main # nom de l’exécutable
 OBJS = $(SRC:.c=.o) # les .o qui en découlent
 .SUFFIXES: .c .o # lien entre les suffixes
 
@@ -14,9 +14,10 @@ all: $(PROG)
 $(PROG): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-callbacks.o: callbacks.h modele.h
+callbacks.o: callbacks.h modele.h vue.h
 modele.o: modele.h
-EuroYuans.o: vue.h modele.h callbacks.h
+main.o: vue.h modele.h
+vue.o : modele.h callbacks.h
 # le lien entre .o et .c
 # $< dernière dépendance
 %.o: %.c

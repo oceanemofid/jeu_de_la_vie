@@ -16,82 +16,50 @@ void quit(Widget w, void *d) {
     exit(EXIT_SUCCESS); 
 }
 
-void basique(Widget w, void *data){
-    void *d;
-    int grille[M][N];
-    //int x = GetYesNo("Voulez vous generer aleatoirement une grille ? ");
-    /*if(x){
-        initGrille(grille);
-    }
-    else{
-        //choix structure
-        //conversion(grille);
-    }*/
-        
-        //afficher(grille,d);
-}
-
-void variante(Widget w, void *data){ //ouvrir fenêtre
-    SetColor(RED);
-    int x;
-    int width = 36;
-    for(int i = 0; i<M; i++){
-        x = i * width;
-        SetColor(YELLOW);
-        DrawFilledBox(x,x,width,width);
-    }
-}
-
 void waitingscreen(){
-    SetColor(RED);
-    int x;
-    int width = 36;
-    for(int i = 0; i<M; i++){
-        x = i * width;
-        SetColor(BLACK);
-        DrawFilledBox(x,x,width,width);
-    }
+    
 }
 
 void aleatoire(Widget w, void *data){
     void *d;
     int grille[M][N];
     initGrille(grille);
+    afficher(grille);
     int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
     if(x){
-        //dayandnight(grille);
+        run_variante(grille, d);
     }
     else{
-        //evolution(grille);
+        run_basique(grille,d);
     }
-    afficher(grille, d);
 }
 
 void stable(Widget w, void *data){
     void *d;
     int grille[M][N];
     conversion(grille,STABLE);
+    afficher(grille);
     int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
     if(x){
-        //dayandnight(grille);
-    }
-    else{
-        //evolution(grille);
-    }
-    afficher(grille, d);
-}
-
-void vaisseau(Widget w, void *data){
-    void *d;
-    int grille[M][N];
-    conversion(grille,VAISSEAU);
-    afficher(grille, d);
-    int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
-    if(x){
-        run_variante(grille);
+        run_variante(grille, d);
     }
     else{
         run_basique(grille,d);
+    }
+}
+
+void vaisseau(Widget w, void *data){
+    int grille[M][N];
+    void *d;
+    int *p = &grille[0][0];
+    conversion(grille,VAISSEAU);
+    afficher(grille);
+    int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
+    if(x){
+        run_variante(grille, d);
+    }
+    else{
+        run_basique(grille,p);
     }
 }
 
@@ -99,17 +67,17 @@ void montre(Widget w, void *data){
     void *d;
     int grille[M][N];
     conversion(grille,MONTRE);
+    afficher(grille);
     int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
     if(x){
-        //dayandnight(grille);
+        run_variante(grille, d);
     }
     else{
-        //evolution(grille);
+        run_basique(grille,d);
     }
-    afficher(grille, d);
 }
 
-void afficher(int grille[M][N], void *data){
+void afficher(int grille[M][N]){
     int voisins, x, y, width, height;
     int u=0;
     width = 36;
@@ -126,11 +94,7 @@ void afficher(int grille[M][N], void *data){
             }
             else if(grille[i][j]== 1|| grille[i][j]== 49){
                 SetColor(YELLOW);
-                DrawFilledBox(x,y,width,height);
-            }
-            else{
-                SetColor(RED);
-                DrawFilledBox(x,y,width,height);
+                DrawFilledBox(0,0,width,height);
             }
         }
     }
@@ -141,18 +105,27 @@ void afficher(int grille[M][N], void *data){
         DrawLine(u,0,u,LARGEUR);
         DrawLine(0,u,HAUTEUR,u);
     }
-    //AddTimeOut(2000, afficher,data);
 }
 
-void run_variante(int grille[M][N]){
-    //afficher(grille, data);
-    dayandnight(grille);
-    //AddTimeOut(2000, run_basique, data);
+void run_variante(int grille[M][N], void *data){
+    //while(delay(3)){
+        dayandnight(grille);
+        afficher(grille);
+    //}
 }
 
-void run_basique(int grille[M][N], void *data){
-    while(delay(3)){
-        evolution(grille);
-        afficher(grille,data);
-    }
+void run_basique(int grille[M][N], int *data){
+    evolution(grille);
+    delay(3);
+    afficher(grille);
+    evolution(grille);
+    delay(3);
+    afficher(grille);
+    evolution(grille);
+    afficher(grille);
+    evolution(grille);
+    afficher(grille);
+    evolution(grille);
+    afficher(grille);
+    evolution(grille);
 }

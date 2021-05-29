@@ -47,7 +47,7 @@ int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivant
             }
         }
     }
-    if(grille[i][j] == 1){ //si la cellule est vivante elle a été comptée dans le nbr de voisins vivants
+    if(grille[i][j] == 1 || grille[i][j] == 49){ //si la cellule est vivante elle a été comptée dans le nbr de voisins vivants
         voisins-=1; //on retire donc 1
     }
     return voisins;
@@ -60,6 +60,9 @@ void evolution(int grille[M][N]){ //détermination de la génération suivante
 
     for(int l = 0; l<M; l++){
         for (int m = 0; m<N; m++){
+            if(grille[l][m] > 2){
+                grille[l][m] = grille[l][m] - 48;
+            }
             res[l][m] = grille[l][m]; //res = grille
         }
     }
@@ -170,7 +173,7 @@ void conversion(int grille[M][N], int nom){
     fclose(file);
 }
 
-int delay(int number_of_seconds){
+void delay(int number_of_seconds){
     // Converting time into milli_seconds
     int milli_seconds = 1000 * number_of_seconds;
   
@@ -179,6 +182,5 @@ int delay(int number_of_seconds){
   
     // looping till required time is not achieved
     while (clock() < start_time + milli_seconds);
-    return 1;
 }
 
