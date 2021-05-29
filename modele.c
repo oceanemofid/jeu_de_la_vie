@@ -170,15 +170,15 @@ void conversion(int grille[M][N], int nom){
     fclose(file);
 }
 
-void delay(){
-    int i;
-    int msec = 0, trigger = 5000; /* 5s */
-    clock_t before = clock();
-
-    do {
-    clock_t difference = clock() - before;
-    msec = difference * 1000 / CLOCKS_PER_SEC;
-    i++;}   
-    while ( msec < trigger );
+int delay(int number_of_seconds){
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+  
+    // Storing start time
+    clock_t start_time = clock();
+  
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds);
+    return 1;
 }
 

@@ -83,17 +83,15 @@ void stable(Widget w, void *data){
 
 void vaisseau(Widget w, void *data){
     void *d;
-    XtIntervalId *id;
-    int grille[M][N], i;
-    int *p = &grille[0][0];
+    int grille[M][N];
     conversion(grille,VAISSEAU);
     afficher(grille, d);
     int x = GetYesNo("Voulez vous tester la variante Day and Night ? ");
     if(x){
-        run_variante(d,id, grille);
+        run_variante(grille);
     }
     else{
-        run_basique(d, id, grille);
+        run_basique(grille,d);
     }
 }
 
@@ -146,14 +144,15 @@ void afficher(int grille[M][N], void *data){
     //AddTimeOut(2000, afficher,data);
 }
 
-void run_variante(void *data, XtIntervalId *id, int grille[M][N]){
-    afficher(grille, data);
+void run_variante(int grille[M][N]){
+    //afficher(grille, data);
     dayandnight(grille);
-    AddTimeOut(2000, run_basique, data);
+    //AddTimeOut(2000, run_basique, data);
 }
 
-void run_basique(void *data, XtIntervalId *id, int grille[M][N]){
-    evolution(grille);
-    afficher(grille, data);
-    AddTimeOut(2000, run_basique, data);
+void run_basique(int grille[M][N], void *data){
+    while(delay(3)){
+        evolution(grille);
+        afficher(grille,data);
+    }
 }

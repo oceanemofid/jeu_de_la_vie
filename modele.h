@@ -12,3 +12,4 @@ extern void evolution(int grille[M][N]);
 extern void dayandnight(int grille[M][N]);
 extern void conversion(int grille[M][N], int nom); 
 extern void afficherGrille(int *pointeur);
+extern int delay(int number_of_seconds);
