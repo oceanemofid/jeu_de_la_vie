@@ -12,35 +12,43 @@
 /* Rôle: création et assemblage des widgets */
 
 void init_display(){
-    Widget BQuit, BStable, BVaisseau, BMontre, BAlea, BOscillo, BPentha, BGalaxie;
-    Widget Box, Texte;
+    Widget BQuit, StrSize;
+    Widget Box, Texte, Texte_2, Texte_3;
+    Widget BStructure[6];
     char *txt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nMauris mollis elit a dui tincidunt pellentesque.\nInteger tellus felis, cursus egestas pellentesque ac, interdum at metus.\nMorbi mollis vel quam vel vulputate.\nMauris ultrices et nunc at lobortis. Etiam faucibus nisl urna, vitae gravida nunc volutpat id.\nInteger placerat leo in sem tincidunt, ut aliquam mauris vulputate.\nProin porttitor scelerisque enim, quis auctor massa congue eu. ";
-// créer les composants graphiques
+    char *txt_2 = "   ou   ";
+    char *txt_3 = "Observez maintenant la population evoluee : ";
+    // créer les composants graphiques
     Texte = MakeLabel(txt);
+    Texte_2 = MakeLabel(txt_2);
+    Texte_3 = MakeLabel(txt_3);
 
-    BAlea = MakeButton("Population aleatoire", aleatoire, NULL);
-    BStable = MakeButton("Structure stable", stable, NULL);
-    BVaisseau = MakeButton("Vaisseau simple", vaisseau, NULL);
-    BMontre = MakeButton("Montre", montre, NULL);
-    BOscillo = MakeButton("Oscillateur", oscillateur, NULL);
-    BPentha = MakeButton("Penthadecathlon", pentadecathlon, NULL);
-    BGalaxie = MakeButton("Galaxie de Kok", galaxie, NULL);
+    //BAlea = MakeButton("Population aleatoire", aleatoire, NULL);
+    StrSize = MakeStringEntry(NULL, 200, aleatoire, NULL);
+    BStructure[0] = MakeButton("Structure stable", stable, NULL);
+    BStructure[1] = MakeButton("Vaisseau simple", vaisseau, NULL);
+    BStructure[2] = MakeButton("Montre", montre, NULL);
+    BStructure[3] = MakeButton("Oscillateur", oscillateur, NULL);
+    BStructure[4] = MakeButton("Penthadecathlon", pentadecathlon, NULL);
+    BStructure[5] = MakeButton("Galaxie de Kok", galaxie, NULL);
 
-    Box = MakeDrawArea(LARGEUR,HAUTEUR,waitingscreen,NULL);
+    Box = MakeDrawArea(M*15+(M-1)*5,M*15+(M-1)*5,waitingscreen,NULL);
     
     BQuit = MakeButton(" Quit ", quit, NULL);
 
 // assembler les composants graphiques
     SetWidgetPos(Texte, NO_CARE, NULL, NO_CARE, NULL); 
-    SetWidgetPos(BAlea, PLACE_UNDER, Texte, NO_CARE, NULL); 
-    SetWidgetPos(BStable, PLACE_UNDER, BAlea, NO_CARE, NULL);
-    SetWidgetPos(BVaisseau, PLACE_UNDER, BStable, NO_CARE, NULL);
-    SetWidgetPos(BMontre, PLACE_UNDER, BVaisseau, NO_CARE, NULL);
-    SetWidgetPos(BOscillo, PLACE_UNDER, BMontre, NO_CARE, NULL);
-    SetWidgetPos(BPentha, PLACE_UNDER, BOscillo, NO_CARE, NULL);
-    SetWidgetPos(BGalaxie, PLACE_UNDER, BPentha, NO_CARE, NULL);
+    SetWidgetPos(StrSize, PLACE_UNDER, Texte, NO_CARE, NULL); 
+    SetWidgetPos(Texte_2, PLACE_UNDER, StrSize, NO_CARE, NULL);
+    SetWidgetPos(BStructure[0], PLACE_UNDER, Texte_2, PLACE_UNDER, Texte_2);
+    SetWidgetPos(BStructure[1], PLACE_UNDER, Texte_2, PLACE_RIGHT, BStructure[0]);
+    SetWidgetPos(BStructure[2], PLACE_UNDER, Texte_2, PLACE_RIGHT, BStructure[1]);
+    SetWidgetPos(BStructure[3], PLACE_UNDER, Texte_2, PLACE_RIGHT, BStructure[2]);
+    SetWidgetPos(BStructure[4], PLACE_UNDER, Texte_2, PLACE_RIGHT, BStructure[3]);
+    SetWidgetPos(BStructure[5], PLACE_UNDER, Texte_2, PLACE_RIGHT, BStructure[4]);
+    SetWidgetPos(Texte_3, PLACE_UNDER, BStructure[5], NO_CARE, NULL);
 
-    SetWidgetPos(Box, PLACE_UNDER, BGalaxie, NO_CARE, NULL);
+    SetWidgetPos(Box, PLACE_UNDER, Texte_3, NO_CARE, NULL);
 
     SetWidgetPos(BQuit, PLACE_UNDER, Box, NO_CARE, NULL); 
 // pour gérer les couleurs

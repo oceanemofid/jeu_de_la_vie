@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
         fprintf(stderr,"Can’t open display\n");
     return EXIT_FAILURE;
     }
-
+    
     init_display();
     MainLoop();
     return EXIT_SUCCESS;
