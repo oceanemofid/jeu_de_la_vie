@@ -9,7 +9,6 @@
 #include <string.h>
 #include "modele.h"
 #include <time.h>
-
  
 void initGrille(int grille[M][N]){ //crée une grille avec des individus placés aléatoirement
     time_t t;
@@ -21,13 +20,54 @@ void initGrille(int grille[M][N]){ //crée une grille avec des individus placés
     }
 }
 
+void InitCouleurs(int grille[M][N]){ //initialise la grille de génération 0 pour savoir le temps de vie d'un individu (règles de bases)
+    int voisins;
+    for (int i=0;i<M;i++){
+        for (int j=0;j<N;j++){
+
+            voisins = nbVoisins(grille,i,j);
+            if (grille[i][j]==1){
+                if (voisins>=4 || voisins<=1){
+                    grille[i][j]=4; //n'a vécu qu'un seul cycle
+                }
+            }
+
+            else if(grille[i][j] == 0){
+                if(voisins==3){
+                    grille[i][j]=2; //va naître
+                }
+            }
+            
+        }
+    }
+}
+
+void InitCouleursV(int grille[M][N]){  ////initialise la grille de génération 0 pour savoir le temps de vie d'un individu (variante)
+    for (int i=0;i<M;i++){
+        for (int j=0;j<N;j++){
+            int voisins=nbVoisins(grille,i,j);
+            if (grille[i][j]==1){
+                if (voisins==1 || voisins==2 || voisins==5){
+                    grille[i][j]=4;
+                }
+            }
+            else{
+                if(voisins==3 || voisins==6 || voisins==7 || voisins==8){
+                    grille[i][j]=2;
+                }
+            }
+        }
+    }
+}
+
 int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivants
+    //extrémités par défaut
     int voisins = 0;
     int debutL = i-1;
     int debutC = j-1;
     int finL = i+1;
     int finC = j+1;
-
+    //on gère les exceptions de bords
     if(i == 0){
         debutL = i;
     }
@@ -54,7 +94,70 @@ int nbVoisins(int grille[M][N], int i, int j){ //compte le nbr de voisins vivant
     return voisins;
 }
 
-void basique(int grille[M][N]){ //détermination de la génération suivante
+//jaune=1;vert=2;rouge=3;bleu=4;
+//jaune=vivantes et va rester en vie
+//vert=va naitre
+//rouge=va mourrir mais a deja vecu au moins 1 cycle
+//bleu=va mourrir mais est resté en vie qu'un seul cycle
+
+
+void Couleurs(int grille[M][N],int res[M][N]){ //attribue un nombre selon son état qui correspond à une couleur (règles de bases)
+
+    for (int i=0;i<M;i++){
+        for (int j=0;j<N;j++){
+
+        int voisins=nbVoisins(res,i,j);
+
+            if (res[i][j]==1){
+                if (voisins>3||voisins<2){
+                    if (grille[i][j]==2){
+                        res[i][j]=4;// n'a vécu qu'un seul cycle
+                    }
+                    else{
+                        res[i][j]=3; //a vécu plus d'un cycle
+                    }
+                }
+            }
+
+            else{
+                if(voisins==3){
+                    res[i][j]=2; //va naître
+                }
+            }
+        }
+    }
+
+    for(int i=0;i<M;i++){
+        for(int j=0;j<N;j++){
+            grille[i][j]=res[i][j];
+        }
+    }
+}
+
+void CouleursV(int grille[M][N],int res[M][N]){ //attribue un nombre selon son état qui correspond à une couleur (variante)
+    for (int i=0;i<M;i++){
+        for (int j=0;j<N;j++){
+            int voisins=nbVoisins(res,i,j);
+            if (res[i][j]==1){
+                if (voisins==1 || voisins==2 || voisins==5){
+                    if (grille[i][j]==2){
+                        res[i][j]=4;
+                    }
+                    else{
+                        res[i][j]=3;
+                    }
+                }
+            }   
+            else{
+                if(voisins==3 || voisins==6 || voisins==7 || voisins==8){
+                    res[i][j]=2;
+                }
+            }
+        }
+    }
+}
+
+void basique(int grille[M][N]){ //détermination de la génération suivante selon les règles de bases et sans états intermédiaires
     int i, j;
     int voisins;
     int res[M][N]; //grille intermédiaire
@@ -85,7 +188,26 @@ void basique(int grille[M][N]){ //détermination de la génération suivante
     }
 }
 
-void dayandnight(int grille[M][N]){ //détermination de la génération suivante
+void evolution(int grille[M][N]){ //détermination de la génération suivante selon les règles de bases et avec états intermédiaires
+    int res[M][N]; //grille intermédiaire
+    
+    //remplissage de res
+    for(int l = 0; l<M; l++){
+        for (int m = 0; m<N; m++){
+
+            switch (grille[l][m]) {
+                case 0: res[l][m]=0;break;
+                case 1: res[l][m]=1;break;
+                case 2: res[l][m]=1;break;
+                case 3: res[l][m]=0;break;
+                case 4: res[l][m]=0;break;
+            }
+        }
+    }
+    Couleurs(grille,res);
+}
+
+void dayandnight(int grille[M][N]){ //détermination de la génération suivante selon la variante dayandnight et sans états intermédiaires
     int i, j;
     int voisins;
     int res[M][N]; //grille intermédiaire
@@ -116,34 +238,56 @@ void dayandnight(int grille[M][N]){ //détermination de la génération suivante
     }
 }
 
-void afficherGrille(int grille[M][N]){ //affiche la grille en passant par le pointeur qui pointe sur le premier élément de la grille
+void evolutionV(int grille[M][N]){ //détermination de la génération suivante selon la variante dayandnight et avec états intermédiaires
+    int res[M][N]; //grille intermédiaire
+
+    //remplissage de res
+    for(int l = 0; l<M; l++){
+        for (int m = 0; m<N; m++){
+            switch (grille[l][m]) {
+                case 0: res[l][m]=0;break;
+                case 1: res[l][m]=1;break;
+                case 2: res[l][m]=1;break;
+                case 3: res[l][m]=0;break;
+                case 4: res[l][m]=0;break;
+            }
+        }
+    }
+    CouleursV(grille,res);
+    for(int i=0;i<M;i++){
+        for(int j=0;j<N;j++){
+            grille[i][j]=res[i][j];
+        }
+    }
+}
+
+void afficherGrille(int grille[M][N]){ //affiche la grille en mode textuel 
     for(int i = 0; i<M ; i++){
         for (int j = 0; j<N; j++){
-            //bleu=1;vert=2;rouge=3;jaune=4;
             if(grille[i][j] == 1){
-                printf("\033[0;34m");
+                printf("\033[0;33m"); //jaune
             }
             else if(grille[i][j] == 2){
-                printf("\033[0;32m");
+                printf("\033[0;32m"); //vert
             }
             else if(grille[i][j] == 3){
-                printf("\033[0;31m");
+                printf("\033[0;31m"); //rouge
             }
             else if(grille[i][j] == 4){
-                printf("\033[0;33m");
+                printf("\033[0;34m"); //bleu 
             }
-            printf("%2d", grille[i][j]); //on affiche la valeur pointée par le pointeur
-            printf("\033[0m"); //reset
+            printf("%2d", grille[i][j]); //on affiche la valeur du tableau
+            printf("\033[0m"); //reset de la couleur
             printf(" |"); //séparateur de cellules 
         }
-        printf("\n"); 
+        printf("\n"); //ligne suivante
     }
     
 }
 
-void conversion(int grille[M][N], int nom){
+void conversion(int grille[M][N], int nom){ //convertit un fichier binaire .txt en une grille correspondant à la structure
     FILE *file;
-    switch (nom){
+    switch (nom){ //ouvre le bon file selon le nom passé en paramètre
     case STABLE:
          file = fopen("stable.txt", "r");
         break;
@@ -189,124 +333,52 @@ void conversion(int grille[M][N], int nom){
     for(int l = 0; l<M; l++){
         for (int m = 0; m<N; m++){
             if(grille[l][m] > 2){
-                grille[l][m] = grille[l][m] - 48;
+                grille[l][m] = grille[l][m] - 48; //les élèments sont écrits sous forme ascii suite au fgetc, on les repasse en binaire
             }
         }
     }
     fclose(file);
 }
 
-void delay(int number_of_seconds){
-    // Converting time into milli_seconds
-    int milli_seconds = 1000 * number_of_seconds;
+void delay(int nbr_s){ //delai
+    int milli_secondes = 1000 * nbr_s;
   
-    // Storing start time
-    clock_t start_time = clock();
+    clock_t debut = clock();
   
     // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds);
+    while (clock() < debut + milli_secondes);
 }
 
-//bleu=1;vert=2;rouge=3;jaune=4;
-//bleu=vivantes et va rester en vie
-//vert=va naitre
-//rouge=va mourrir mais a deja vecu au moins 1 cycle
-//jaune=va mourrir mais est resté en vie qu'un seul cycle
+int str_to_param(char *string, int param[2]){ //convertit un string en entier selon une délimitation et en gérant les exceptions à la consigne
+    char *nbr, *type, *test;
+    const char s[2] = "-"; //delimitation
 
-//règles de bases
-void InitCouleurs(int grille[M][N]){
-    int voisins;
-    for (int i=0;i<M;i++){
-        for (int j=0;j<N;j++){
-
-            voisins = nbVoisins(grille,i,j);
-            printf("nbr de voisins de (%d,%d) : %d\n", i, j, voisins);
-            if (grille[i][j]==1){
-                if (voisins>=4 || voisins<=1){
-                    grille[i][j]=4; //n'a vécu qu'un seul cycle
-                }
-            }
-
-            else if(grille[i][j] == 0){
-                if(voisins==3){
-                    grille[i][j]=2; //va naître
-                }
-            }
-            
-        }
+    char str[80];
+    strcpy(str, string);
+    if(str[0] == ' ' || str[0] == '\0'){ //si string dans string entry vide : pas de modifications aux valeurs par défaut
+        return EXIT_SUCCESS;
     }
 
-}
-
-void afficherT(int grille[M][N]){
-    for(int i=0;i<M;i++){
-      for(int j=0;j<N;j++){
-        printf("%2d",grille[i][j]);
-      }
-      printf("\n");
-    }
-  }
-
-void Couleurs(int grille[M][N],int res[M][N]){
-
-    for (int i=0;i<M;i++){
-        for (int j=0;j<N;j++){
-
-        int voisins=nbVoisins(res,i,j);
-
-            if (res[i][j]==1){
-                if (voisins>3||voisins<2){
-                    if (grille[i][j]==2){
-                        res[i][j]=4;// n'a vécu qu'un seul cycle
-                    }
-                    else{
-                        res[i][j]=3; //a vécu plus d'un cycle
-                    }
-                }
-            }
-
-            else{
-                if(voisins==3){
-                    res[i][j]=2; //va naître
-                }
-            }
-        }
+    /* get the first token */
+    nbr = strtok(str, s); 
+    type = strtok(NULL, s);//second token
+    test = strtok(NULL, s); //possible token suivant
+    if(test != NULL){ //si il y a token suivant
+        printf("Données entrées incorrectes\n");
+        return EXIT_FAILURE;
     }
 
-    for(int i=0;i<M;i++){
-        for(int j=0;j<N;j++){
-            grille[i][j]=res[i][j];
-        }
+    if(nbr[0] == ' '){ //si premier token vide
+        param[0] = 80; //par défaut
     }
-}
-
-void evolution(int grille[M][N]){ //détermination de la génération suivante
-    int res[M][N]; //grille intermédiaire
-    
-    //remplissage de res
-    for(int l = 0; l<M; l++){
-        for (int m = 0; m<N; m++){
-
-            switch (grille[l][m]) {
-                case 0: res[l][m]=0;break;
-                case 1: res[l][m]=1;break;
-                case 2: res[l][m]=1;break;
-                case 3: res[l][m]=0;break;
-                case 4: res[l][m]=0;break;
-            }
-        }
+    else{
+        param[0] = strtol(nbr, NULL, 10);
     }
-    Couleurs(grille,res);
-}
-
-int str_to_int(char *string){
-    char *first = strdup(string);
-    char * ptr;
-    int value;
-    
-    value = strtol(first, &ptr, 10); //value recoit le premier entier de la chaine
-    
-    printf("value = %d\n", value);
-    free(first);
-    return value;
+    if(type[0] == ' '){ //si deuxième token vide
+        param[1] = 0; //par défaut
+    }
+    else{
+        param[1] = strtol(type, NULL, 10);
+    }
+    return EXIT_SUCCESS;
 }

@@ -2,7 +2,7 @@ CC = gcc # le compilateur à utiliser
 CFLAGS = -Wall # les options du compilateur
 LDFLAGS = -lsx # les options pour l’éditeur de liens
 SRC = main.c callbacks.c modele.c vue.c # les fichiers sources
-PROG = main # nom de l’exécutable
+PROG = jeu_de_la_vie # nom de l’exécutable
 OBJS = $(SRC:.c=.o) # les .o qui en découlent
 .SUFFIXES: .c .o # lien entre les suffixes
 

@@ -9,7 +9,7 @@ extern void pentadecathlon(Widget w, void *data);
 extern void galaxie(Widget w, void *data);
 extern void afficher(int grille[M][N]);
 extern void waitingscreen(); 
-extern void run_basique(int grille[M][N], int cycles);
-extern void run_variante(int grille[M][N], int cycles);
+extern void run_basique(int grille[M][N], int cycles, int couleur);
+extern void run_variante(int grille[M][N], int cycles, int couleur);
 
 
